@@ -25,8 +25,11 @@
 
         <service
             android:name=".ForecastUpdateService"
-            android:exported="false" >
-        </service>
+            android:exported="false" />
+        
+        <provider
+            android:authorities="edu.spbau.android.forecast"
+            android:name=".WeatherProvider" />
     </application>
 
 </manifest>
