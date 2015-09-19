@@ -11,8 +11,7 @@ public class LocationChangedReceiver extends BroadcastReceiver {
 
     private static final String TAG = LocationChangedReceiver.class.getSimpleName();
 
-    public LocationChangedReceiver() {
-    }
+    public LocationChangedReceiver() { }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -20,8 +19,10 @@ public class LocationChangedReceiver extends BroadcastReceiver {
 
         if (intent.hasExtra(locationKey)) {
             Location location = (Location) intent.getExtras().get(locationKey);
-            Log.d(TAG, "received lat " + Double.toString(location.getLatitude()) +
-                    ", long " + Double.toString(location.getLongitude()));
+
+            Intent startService = new Intent(context, ForecastUpdateService.class);
+            startService.putExtra(LocationManager.KEY_LOCATION_CHANGED, location);
+            context.startService(startService);
         }
     }
 }

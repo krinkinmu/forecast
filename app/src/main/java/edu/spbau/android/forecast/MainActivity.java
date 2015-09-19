@@ -33,8 +33,11 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        final int FIVE_MINUTES = 5 * 60 * 1000;
+
         mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
-                5 * 60 * 1000, 0, mLocationChangedIntent);
+                FIVE_MINUTES, 0, mLocationChangedIntent);
     }
 
     @Override
