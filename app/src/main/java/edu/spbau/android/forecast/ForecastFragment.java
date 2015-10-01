@@ -19,13 +19,19 @@ public class ForecastFragment extends Fragment implements LoaderManager.LoaderCa
     private static final String[] FORECAST_COLUMNS = {
             WeatherContract.WeatherEntry._ID,
             WeatherContract.WeatherEntry.COLUMN_DATE,
-            WeatherContract.WeatherEntry.COLUMN_MAX_TEMP,
-            WeatherContract.WeatherEntry.COLUMN_MIN_TEMP,
+            WeatherContract.WeatherEntry.COLUMN_DAY_TEMP,
+            WeatherContract.WeatherEntry.COLUMN_NIGHT_TEMP,
+            WeatherContract.WeatherEntry.COLUMN_WIND_SPEED,
+            WeatherContract.WeatherEntry.COLUMN_DEGREES,
+            WeatherContract.WeatherEntry.COLUMMN_WEATHER_ID
     };
 
     public static final int COLUMN_WEATHER_DATE = 1;
-    public static final int COLUMN_WEATHER_LOW = 2;
-    public static final int COLUMN_WEATHER_HIGH = 3;
+    public static final int COLUMN_WEATHER_DAY = 2;
+    public static final int COLUMN_WEATHER_NIGHT = 3;
+    public static final int COLUMN_WEATHER_WIND_SPEED = 4;
+    public static final int COLUMN_WEATHER_WIND_DEGREES = 5;
+    public static final int COLUMN_WEATHER_ID = 6;
 
     private ForecastAdapter mForecastAdapter;
 

@@ -33,13 +33,11 @@ public class WeatherContract {
         public static final String TABLE_NAME = "weather";
 
         public static final String COLUMN_DATE = "date";
-        public static final String COLUMN_MAX_TEMP = "max_temperature";
-        public static final String COLUMN_MIN_TEMP = "min_temperature";
-
-        public static final String COLUMN_HUMIDITY = "humidity";
-        public static final String COLUMN_PRESSURE = "pressure";
+        public static final String COLUMN_DAY_TEMP = "day_temp";
+        public static final String COLUMN_NIGHT_TEMP = "nigh_temp";
         public static final String COLUMN_WIND_SPEED = "wind";
         public static final String COLUMN_DEGREES = "direction";
+        public static final String COLUMMN_WEATHER_ID = "weather_id";
 
         public static long getDateFromUri(Uri uri) {
             return Long.parseLong(uri.getPathSegments().get(1));

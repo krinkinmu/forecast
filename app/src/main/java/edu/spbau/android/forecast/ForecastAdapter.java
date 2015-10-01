@@ -6,11 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ForecastAdapter extends CursorAdapter {
-
-
 
     public ForecastAdapter(Context context, Cursor cursor, int flags) {
         super(context, cursor, flags);
@@ -31,22 +30,29 @@ public class ForecastAdapter extends CursorAdapter {
         long date = cursor.getLong(ForecastFragment.COLUMN_WEATHER_DATE);
         holder.date.setText(Utility.getFriendlyDayString(date));
 
-        double low = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_LOW);
-        holder.low.setText(Utility.getFormattedTemperature(low));
+        double day = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_DAY);
+        double nigh = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_NIGHT);
+        holder.temp.setText(Utility.getFormattedTemperature(day, nigh));
 
-        double high = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_HIGH);
-        holder.high.setText(Utility.getFormattedTemperature(high));
+        double speed = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_WIND_SPEED);
+        double degrees = cursor.getDouble(ForecastFragment.COLUMN_WEATHER_WIND_DEGREES);
+        holder.wind.setText(Utility.getFormattedWind(speed, degrees));
+
+        int weatherId = cursor.getInt(ForecastFragment.COLUMN_WEATHER_ID);
+        holder.icon.setImageResource(Utility.getWeatherConditionIcon(weatherId));
     }
 
     public static class ViewHolder {
         public TextView date;
-        public TextView low;
-        public TextView high;
+        public TextView temp;
+        public TextView wind;
+        public ImageView icon;
 
         public ViewHolder(View view) {
             date = (TextView) view.findViewById(R.id.date);
-            low = (TextView) view.findViewById(R.id.low);
-            high = (TextView) view.findViewById(R.id.high);
+            temp = (TextView) view.findViewById(R.id.temp);
+            wind = (TextView) view.findViewById(R.id.wind);
+            icon = (ImageView) view.findViewById(R.id.icon);
         }
     }
 

@@ -31,13 +31,13 @@ public class ForecastUpdateService extends IntentService {
 
     private void parseJsonData(String json) {
         final String JSON_LIST = "list";
-        final String JSON_PRESSURE = "pressure";
-        final String JSON_HUMIDITY = "humidity";
         final String JSON_SPEED = "speed";
         final String JSON_DEGREE = "deg";
         final String JSON_TEMPERATURE = "temp";
-        final String JSON_MAX_TEMPERATURE = "max";
-        final String JSON_MIN_TEMPERATURE = "min";
+        final String JSON_DAY_TEMPERATURE = "day";
+        final String JSON_NIGHT_TEMPERATURE = "night";
+        final String JSON_WEATHER = "weather";
+        final String JSON_WEATHER_ID = "id";
 
         try {
             JSONObject forecastJson = new JSONObject(json);
@@ -55,23 +55,24 @@ public class ForecastUpdateService extends IntentService {
 
                 long dateTime = dayTime.setJulianDay(julianStartDay + i);
 
-                double pressure = dayForecast.getDouble(JSON_PRESSURE);
-                int humidity = dayForecast.getInt(JSON_HUMIDITY);
                 double speed = dayForecast.getDouble(JSON_SPEED);
                 double degree = dayForecast.getDouble(JSON_DEGREE);
 
                 JSONObject temperatureObject = dayForecast.getJSONObject(JSON_TEMPERATURE);
-                double high = temperatureObject.getDouble(JSON_MAX_TEMPERATURE);
-                double low = temperatureObject.getDouble(JSON_MIN_TEMPERATURE);
+                double day = temperatureObject.getDouble(JSON_DAY_TEMPERATURE);
+                double night = temperatureObject.getDouble(JSON_NIGHT_TEMPERATURE);
+
+                JSONArray weatherObjects = dayForecast.getJSONArray(JSON_WEATHER);
+                JSONObject weatherObject = weatherObjects.getJSONObject(0);
+                int weather = weatherObject.getInt(JSON_WEATHER_ID);
 
                 ContentValues weatherValues = new ContentValues();
                 weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DATE, dateTime);
                 weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DEGREES, degree);
                 weatherValues.put(WeatherContract.WeatherEntry.COLUMN_WIND_SPEED, speed);
-                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_HUMIDITY, humidity);
-                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_MAX_TEMP, high);
-                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_MIN_TEMP, low);
-                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_PRESSURE, pressure);
+                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_NIGHT_TEMP, night);
+                weatherValues.put(WeatherContract.WeatherEntry.COLUMN_DAY_TEMP, day);
+                weatherValues.put(WeatherContract.WeatherEntry.COLUMMN_WEATHER_ID, weather);
                 forecast.add(weatherValues);
             }
 
